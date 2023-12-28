@@ -2,7 +2,6 @@ version: '3'
 
 volumes:
   mysql_data:
-  node_modules_data:
 
 services:
   api:
@@ -11,18 +10,10 @@ services:
       - ./api:/var/www/html
     ports:
       - "8000:80"
-
   frontend:
-    build:
-      context: .
-      dockerfile: ./docker/frontend/Dockerfile
-    image: node:latest
+    build: ./docker/frontend
     volumes:
-      - ./frontend:/app
-      - node_modules_data:/app/node_modules
-    tty: true
-    working_dir: /app
-    command: npm run serve
+      - ./frontend:/var/www/frontend
     ports:
       - "3000:3000"
 
